@@ -51,21 +51,6 @@ async function getFedData(SeriesID) {
     
     mergedObj = {...metaData, data: seriesData}
     return mergedObj;
-    //retrieve Time Series info from Fred
-
-    
-
-    //retrieve meta data from Fred
-
-    
-    //process Time Series data given update schedule for data
-
-
-    //populate an object with Series meta data and time series info
-
-
-    //send series object off to be jointed with globla
-
 }
 
 module.exports = getFedData;

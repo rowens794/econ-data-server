@@ -7,8 +7,8 @@ exports.AggAndSave = function (processedObject, rawData) {
 
 
     //create a small package of data to be downloaded immediately on page load
-    //console.log(processedObject);
     smallPack = {
+        lastUpdate: Date.now(),
         chartData: [],
         indicators: {}
     };
@@ -36,17 +36,21 @@ exports.AggAndSave = function (processedObject, rawData) {
                 value: processedObject[0][keys[i]].seriesValue,
                 oneMonthChange: processedObject[0][keys[i]].oneMonth,
                 threeMonthChange: processedObject[0][keys[i]].threeMonth,
-                lastUpdate: rawData[index].last_updated
+                lastUpdate: rawData[index].last_updated,
+                lastChecked: new Date(Date.now())
             }
         }
     }
+    
+    const smallPackData = new SmallPack(smallPack);
 
-    SmallPack.findOneAndUpdate({_id: '5bbb5a38d69578b1f4ee1702'}, smallPack, function (err){
-        if (err) {
-            console.log("---------ERROR SAVING DATA---------");
-            console.log(err);
-        }
-        console.log('Data Stored successfully')
+    SmallPack.findOneAndDelete({}, function(err){
+        if (err) console.log('error deleting previous doc')
+        else {
+            console.log('previous document deleted')
+            smallPackData.save(smallPack, function(err){
+                if (err) console.log('error')
+                else console.log("new document saved successfully")
+            })}
     })
-
 }
