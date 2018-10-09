@@ -15,6 +15,7 @@ mongoose.connect(mongoDB, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+const Data = require("../models/SmallPack");
 
 
 //const DATA_POINTS = ['CPIAUCSL']
@@ -76,5 +77,16 @@ const testFunc = async function() {
 };
 
 testFunc()
+
+app.get('/', function (req, res) {
+  Data.find({}, function(err, docs){
+    if (err) res.send('error fetching data');
+    else {
+      console.log(docs[0]);
+      res.json(docs[0]);
+    }
+  })
+  
+})
 
 app.listen("3128");
