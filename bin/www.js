@@ -82,7 +82,9 @@ app.get('/', function (req, res) {
   Data.find({}, function(err, docs){
     if (err) res.send('error fetching data');
     else {
-      console.log(docs[0]);
+      //allow cors
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "X-Requested-With");
       res.json(docs[0]);
     }
   })
