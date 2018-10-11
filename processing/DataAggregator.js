@@ -25,7 +25,6 @@ exports.AggAndSave = function (processedObject, rawData) {
 
     //console.log(rawData);
     keys = Object.keys(processedObject[0]);
-    
 
     for (i=0; i<keys.length; i++){
         if(DATA_POINTS.indexOf(keys[i]) != -1){
@@ -37,7 +36,8 @@ exports.AggAndSave = function (processedObject, rawData) {
                 oneMonthChange: processedObject[0][keys[i]].oneMonth,
                 threeMonthChange: processedObject[0][keys[i]].threeMonth,
                 lastUpdate: rawData[index].last_updated,
-                lastChecked: new Date(Date.now())
+                lastChecked: new Date(Date.now()),
+                lastReading: processedObject[0][keys[i]].reading
             }
         }
     }

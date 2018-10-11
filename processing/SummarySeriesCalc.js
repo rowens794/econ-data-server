@@ -18,7 +18,8 @@ exports.summaryCalc = function(monthObj, seriesValues){
                 twoYear: 0,
                 threeYear: 0,
                 fiveYear: 0,
-                seriesValue: 0
+                seriesValue: 0,
+                reading: 0
             };
 
             for (k=0; k < seriesValues[i].data.length; k++){
@@ -65,13 +66,17 @@ exports.summaryCalc = function(monthObj, seriesValues){
 
                         if(threeM * 4 > twelveM && twelveM > twoY){
                             monthObj[j][indicatorType] += 2;
+                            monthObj[j][seriesValues[i].id].reading = 2;
                         }else if (twelveM > twoY){
                             monthObj[j][indicatorType] += 1;
+                            monthObj[j][seriesValues[i].id].reading = 1;
                         }else if (threeM * 4 < twelveM && twelveM < twoY){
                             monthObj[j][indicatorType] -= 2;
+                            monthObj[j][seriesValues[i].id].reading = -2;
                         }
                         else if (twelveM < twoY){
                             monthObj[j][indicatorType] -= 1;
+                            monthObj[j][seriesValues[i].id].reading = 1;
                         }
 
                     //else series is a negatively trending value
@@ -79,12 +84,16 @@ exports.summaryCalc = function(monthObj, seriesValues){
 
                         if(threeM * 4 < twelveM && twelveM < twoY){
                             monthObj[j][indicatorType] += 2;
+                            monthObj[j][seriesValues[i].id].reading = 2;
                         }else if (twelveM < twoY){
                             monthObj[j][indicatorType] += 1;
+                            monthObj[j][seriesValues[i].id].reading = 1;
                         }else if (threeM * 4 > twelveM && twelveM > twoY){
                             monthObj[j][indicatorType] -= 2;
+                            monthObj[j][seriesValues[i].id].reading = -2;
                         }else if (twelveM > twoY){
                             monthObj[j][indicatorType] -= 1;
+                            monthObj[j][seriesValues[i].id].reading = -1;
                         }
                     }
 
