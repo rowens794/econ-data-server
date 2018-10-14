@@ -31,6 +31,7 @@ exports.AggAndSave = function (processedObject, rawData) {
             index = DATA_POINTS.indexOf(keys[i])
 
             smallPack.indicators[keys[i]] = {
+                key: i,
                 shortName: shortNames.shortNames[keys[i]],
                 value: processedObject[0][keys[i]].seriesValue,
                 oneMonthChange: processedObject[0][keys[i]].oneMonth,
