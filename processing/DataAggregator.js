@@ -31,7 +31,7 @@ exports.AggAndSave = function (processedObject, rawData) {
             index = DATA_POINTS.indexOf(keys[i])
 
             smallPack.indicators[keys[i]] = {
-                key: i,
+                key: keys[i],
                 shortName: shortNames.shortNames[keys[i]],
                 value: processedObject[0][keys[i]].seriesValue,
                 oneMonthChange: processedObject[0][keys[i]].oneMonth,
@@ -54,4 +54,11 @@ exports.AggAndSave = function (processedObject, rawData) {
                 else console.log("new document saved successfully")
             })}
     })
+}
+
+function slugify(text)
+{
+    return text.toString().toLowerCase().trim()
+        .replace(/&/g, '-and-')         // Replace & with 'and'
+        .replace(/[\s\W-]+/g, '-')      // Replace spaces, non-word characters and dashes with a single dash (-)
 }
