@@ -34,12 +34,16 @@ exports.summaryCalc = function(monthObj, seriesValues){
 
                     if (LEADING_INDICATORS.indexOf(seriesValues[i].id) > -1 ){
                         indicatorType = "leadingValue";
+                        indicatorLen = LEADING_INDICATORS.length;
                     }else if (COINCIDENT_INDICATORS.indexOf(seriesValues[i].id) > -1 ){
                         indicatorType = "coincidentValue";
+                        indicatorLen = COINCIDENT_INDICATORS.length;
                     }else if (LAGGING_INDICATORS.indexOf(seriesValues[i].id) > -1 ){
                         indicatorType = "laggingValue";
+                        indicatorLen = LAGGING_INDICATORS.length;
                     }else{
                         indicatorType = "otherValue";
+                        indicatorLen = OTHER_INDICATORS.length;
                     }
 
 
@@ -65,17 +69,17 @@ exports.summaryCalc = function(monthObj, seriesValues){
                     if (RISING_INDICATORS.indexOf(seriesValues[i].id) > -1 ){
 
                         if(threeM * 4 > twelveM && twelveM > twoY){
-                            monthObj[j][indicatorType] += 2;
+                            monthObj[j][indicatorType] += 2 /indicatorLen;
                             monthObj[j][seriesValues[i].id].reading = 2;
                         }else if (twelveM > twoY){
-                            monthObj[j][indicatorType] += 1;
+                            monthObj[j][indicatorType] += 1 / indicatorLen;
                             monthObj[j][seriesValues[i].id].reading = 1;
                         }else if (threeM * 4 < twelveM && twelveM < twoY){
-                            monthObj[j][indicatorType] -= 2;
+                            monthObj[j][indicatorType] -= 2 / indicatorLen;
                             monthObj[j][seriesValues[i].id].reading = -2;
                         }
                         else if (twelveM < twoY){
-                            monthObj[j][indicatorType] -= 1;
+                            monthObj[j][indicatorType] -= 1 / indicatorLen;
                             monthObj[j][seriesValues[i].id].reading = 1;
                         }
 
@@ -83,16 +87,16 @@ exports.summaryCalc = function(monthObj, seriesValues){
                     }else{
 
                         if(threeM * 4 < twelveM && twelveM < twoY){
-                            monthObj[j][indicatorType] += 2;
+                            monthObj[j][indicatorType] += 2 / indicatorLen;
                             monthObj[j][seriesValues[i].id].reading = 2;
                         }else if (twelveM < twoY){
-                            monthObj[j][indicatorType] += 1;
+                            monthObj[j][indicatorType] += 1 / indicatorLen;
                             monthObj[j][seriesValues[i].id].reading = 1;
                         }else if (threeM * 4 > twelveM && twelveM > twoY){
-                            monthObj[j][indicatorType] -= 2;
+                            monthObj[j][indicatorType] -= 2 / indicatorLen;
                             monthObj[j][seriesValues[i].id].reading = -2;
                         }else if (twelveM > twoY){
-                            monthObj[j][indicatorType] -= 1;
+                            monthObj[j][indicatorType] -= 1 / indicatorLen;
                             monthObj[j][seriesValues[i].id].reading = -1;
                         }
                     }

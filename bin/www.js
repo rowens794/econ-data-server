@@ -1,9 +1,9 @@
 // index.js
-const cron = require("node-cron");
 const express = require("express");
 const GetFredData = require("../processing/GetFredData");
 const SummarySeriesCalc = require("../processing/SummarySeriesCalc");
 const Agg = require("../processing/DataAggregator");
+const IndicatorSave = require("../processing/IndicatorSave");
 require('dotenv').config({path: 'vars.env'});
 app = express();
 
@@ -16,20 +16,15 @@ mongoose.Promise = global.Promise;
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 const Data = require("../models/SmallPack");
+const Indicators = require("../models/Indicators");
 
-
-//const DATA_POINTS = ['CPIAUCSL']
-const DATA_POINTS = ['AWHMAN','ICSA','ACDGNO','AMTMNO','UNXANO','PERMIT','M1109BUSM293NNBR','T10Y3M','UMCSENT','PAYEMS','DSPIC96','INDPRO','CMRMTSPL','UEMPMEAN','ISRATIO','ULCNFB','MPRIME','TOTCI','TDSP','CUSR0000SAS','USSLIND','CPIAUCSL','GDPC1']
-
-//schedule tasks to be run on the server
-//cron.schedule("0-59 * * * *", async function() {
 const testFunc = async function() {
 
   //collect api call promises for the data collection
   const promises = [
     await GetFredData('AWHMAN'),
     await GetFredData('ICSA'),
-    await  GetFredData('ACDGNO'),
+    await GetFredData('ACDGNO'),
     await GetFredData('AMTMNO'),
     await GetFredData('UNXANO'),
     await GetFredData('PERMIT'),
@@ -66,14 +61,19 @@ const testFunc = async function() {
     monthlyStructure.push({date: obj.date, leadingValue: 0, coincidentValue: 0, laggingValue: 0, otherValue:0});
   })
   
-
+  
   //pass date structure and data into a function to calculate period scores for business cycle
   const summaryData = await SummarySeriesCalc.summaryCalc(monthlyStructure, data);
   
   //parse the finalized object and send to database
   Agg.AggAndSave(summaryData, data);
+  
 
-//});
+  //get and save individual data series
+  for (i=0; i<data.length; i++){
+    IndicatorSave.BuildIndicatorAndSave(data[i], summaryData);
+  }
+
 };
 
 testFunc()
@@ -88,7 +88,18 @@ app.get('/', function (req, res) {
       res.json(docs[0]);
     }
   })
-  
+})
+
+app.get('/:symbol', function (req, res) {
+  Indicators.find({IndicatorSymbol: req.params.symbol}, function(err, docs){
+    if (err) res.send('error fetching data');
+    else {
+      //allow cors
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "X-Requested-With");
+      res.json(docs[0]);
+    }
+  })
 })
 
 var port = process.env.PORT || 8080

@@ -1,4 +1,4 @@
-const shortNames = require('./ManualData');
+const manualData = require('./ManualData');
 const SmallPack = require("../models/SmallPack");
 
 exports.AggAndSave = function (processedObject, rawData) {
@@ -32,7 +32,7 @@ exports.AggAndSave = function (processedObject, rawData) {
 
             smallPack.indicators[keys[i]] = {
                 key: keys[i],
-                shortName: shortNames.shortNames[keys[i]],
+                shortName: manualData.shortNames[keys[i]],
                 value: processedObject[0][keys[i]].seriesValue,
                 oneMonthChange: processedObject[0][keys[i]].oneMonth,
                 threeMonthChange: processedObject[0][keys[i]].threeMonth,
@@ -54,11 +54,4 @@ exports.AggAndSave = function (processedObject, rawData) {
                 else console.log("new document saved successfully")
             })}
     })
-}
-
-function slugify(text)
-{
-    return text.toString().toLowerCase().trim()
-        .replace(/&/g, '-and-')         // Replace & with 'and'
-        .replace(/[\s\W-]+/g, '-')      // Replace spaces, non-word characters and dashes with a single dash (-)
 }
