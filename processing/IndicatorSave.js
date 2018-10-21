@@ -46,6 +46,7 @@ exports.BuildIndicatorAndSave = function (rawData, summaryData) {
         ThreeYearChange: summaryData[0][rawData.id].threeYear,
         FiveYearChange: summaryData[0][rawData.id].fiveYear,
         Frequency: rawData.frequency,
+        FrequencyShort: rawData.frequency_short,
     };
 
 

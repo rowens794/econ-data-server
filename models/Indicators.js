@@ -19,6 +19,7 @@ let IndicatorsSchema = new Schema({
     'ThreeYearChange': Number,
     'FiveYearChange': Number,
     'Frequency': String,
+    'FrequencyShort': String,
 });
 
 
