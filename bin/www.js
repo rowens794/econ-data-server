@@ -1,5 +1,6 @@
 // index.js
 const express = require("express");
+const Moment = require('moment');
 const GetFredData = require("../processing/GetFredData");
 const SummarySeriesCalc = require("../processing/SummarySeriesCalc");
 const Agg = require("../processing/DataAggregator");
@@ -52,15 +53,16 @@ const testFunc = async function() {
     .then(data => {
       return data;
   });
-  
 
-  //collect a monthly date object that can be used to consolidate data 
-  //I use ACDGNO to form the object because of it's monthly frequency and it has shortest start date
+  //create a monthly structure to store data points
   let monthlyStructure = [];
-  data[2].data.map(obj => {
-    monthlyStructure.push({date: obj.date, leadingValue: 0, coincidentValue: 0, laggingValue: 0, otherValue:0});
-  })
-  
+  let startDate = Moment();
+
+  while (startDate > Moment('1/1/1992')) {
+    monthlyStructure.push({date: startDate.toDate(), leadingValue: 0, coincidentValue: 0, laggingValue: 0, otherValue:0});
+    startDate.subtract(1, 'months');
+  }
+  console.log(monthlyStructure);
   
   //pass date structure and data into a function to calculate period scores for business cycle
   const summaryData = await SummarySeriesCalc.summaryCalc(monthlyStructure, data);
