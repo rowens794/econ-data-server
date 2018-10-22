@@ -29,7 +29,7 @@ const testFunc = async function() {
     await GetFredData('AMTMNO'),
     await GetFredData('UNXANO'),
     await GetFredData('PERMIT'),
-    await GetFredData('M1109BUSM293NNBR'),
+    await GetFredData('WILL5000INDFC'),
     await GetFredData('T10Y3M'),
     await GetFredData('UMCSENT'),
     await GetFredData('PAYEMS'),

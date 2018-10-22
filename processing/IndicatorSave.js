@@ -3,11 +3,12 @@ const Indicators = require("../models/Indicators");
 
 exports.BuildIndicatorAndSave = function (rawData, summaryData) {
 
-    LEADING_INDICATORS = ['AWHMAN','ICSA','ACDGNO','AMTMNO','UNXANO','PERMIT','M1109BUSM293NNBR','T10Y3M','UMCSENT'];
-    COINCIDENT_INDICATORS = ['PAYEMS','DSPIC96','INDPRO','CMRMTSPL'];
-    LAGGING_INDICATORS = ['UEMPMEAN','ISRATIO','ULCNFB','MPRIME','TOTCI','TDSP','CUSR0000SAS'];
-    OTHER_INDICATORS = ['USSLIND','CPIAUCSL','GDPC1']
-    RISING_INDICATORS = ['AWHMAN','ACDGNO','AMTMNO','UNXANO','PERMIT','M1109BUSM293NNBR','T10Y3M','UMCSENT','PAYEMS','DSPIC96','INDPRO','CMRMTSPL','ULCNFB','MPRIME','TOTCI','USSLIND','CPIAUCSL','GDPC1'];
+    const ConstantData = require('../processing/ConstantData');
+    const LEADING_INDICATORS = ConstantData.leading_indicators;
+    const COINCIDENT_INDICATORS = ConstantData.coincident_indicators;
+    const LAGGING_INDICATORS = ConstantData.lagging_indicators;
+    const OTHER_INDICATORS = ConstantData.other_indicators;
+    const RISING_INDICATORS = ConstantData.rising_indicators;
 
     //identify indicator type
     let indicatorType = ''
@@ -50,22 +51,22 @@ exports.BuildIndicatorAndSave = function (rawData, summaryData) {
     };
 
 
-    const indicator = new Indicators(indicatorData);
     
-
+    
     //Function to establish initial data population
-    // indicator.save(indicatorData, function(err){
-    //     if (err) console.log('error saving indicator data');
-    //     else console.log(`indicator data for ${rawData.id} saved successfully`);
-    // })
-
-
-    Indicators.findOneAndUpdate({IndicatorSymbol: rawData.id}, indicatorData, function(err){
-        if (err) {
-            console.log(`indicator data for ${rawData.id} failed to update`);
-        }
-        else {
-            console.log(`indicator data for ${rawData.id} updated successfully`);
-        }
+    const indicator = new Indicators(indicatorData);
+    indicator.save(indicatorData, function(err){
+        if (err) console.log('error saving indicator data');
+        else console.log(`indicator data for ${rawData.id} saved successfully`);
     })
+
+
+    // Indicators.findOneAndUpdate({IndicatorSymbol: rawData.id}, indicatorData, function(err){
+    //     if (err) {
+    //         console.log(`indicator data for ${rawData.id} failed to update`);
+    //     }
+    //     else {
+    //         console.log(`indicator data for ${rawData.id} updated successfully`);
+    //     }
+    // })
 }

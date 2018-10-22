@@ -5,7 +5,7 @@ exports.shortNames = {
     'AMTMNO':"New Orders",
     'UNXANO':"New Orders Cap Goods",
     'PERMIT':"New Housing Units",
-    'M1109BUSM293NNBR':"DJIA Return",
+    'WILL5000INDFC':"Wilshire 5000",
     'T10Y3M':"10yr / 3m Spread",
     'UMCSENT':"Consumer Sentiment",
     'PAYEMS':"Nonfarm Payrolls",

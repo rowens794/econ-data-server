@@ -1,10 +1,11 @@
 const manualData = require('./ManualData');
 const SmallPack = require("../models/SmallPack");
 
+
 exports.AggAndSave = function (processedObject, rawData) {
 
-    const DATA_POINTS = ['AWHMAN','ICSA','ACDGNO','AMTMNO','UNXANO','PERMIT','M1109BUSM293NNBR','T10Y3M','UMCSENT','PAYEMS','DSPIC96','INDPRO','CMRMTSPL','UEMPMEAN','ISRATIO','ULCNFB','MPRIME','TOTCI','TDSP','CUSR0000SAS','USSLIND','CPIAUCSL','GDPC1']
-
+    const ConstantData = require('../processing/ConstantData');
+    const DATA_POINTS = ConstantData.indicators;
 
     //create a small package of data to be downloaded immediately on page load
     smallPack = {

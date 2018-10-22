@@ -1,6 +1,7 @@
 var exports = module.exports = {};
 
-RISING_INDICATORS = ['AWHMAN','ACDGNO','AMTMNO','UNXANO','PERMIT','M1109BUSM293NNBR','T10Y3M','UMCSENT','PAYEMS','DSPIC96','INDPRO','CMRMTSPL','ULCNFB','MPRIME','TOTCI','USSLIND','CPIAUCSL','GDPC1'];
+const ConstantData = require('../processing/ConstantData');
+const RISING_INDICATORS = ConstantData.rising_indicators;
 
 exports.summaryCalc = function(monthObj, seriesValues){
     console.log('summary series calc running');
@@ -27,10 +28,10 @@ exports.summaryCalc = function(monthObj, seriesValues){
                 if (seriesValues[i].data[k].date <= monthObj[j].date){
                     //console.log(monthObj[j].date+": "+monthObj[j].leadingValue+": "+monthObj[j].coincidentValue+": "+monthObj[j].laggingValue)
 
-                    LEADING_INDICATORS = ['AWHMAN','ICSA','ACDGNO','AMTMNO','UNXANO','PERMIT','M1109BUSM293NNBR','T10Y3M','UMCSENT'];
-                    COINCIDENT_INDICATORS = ['PAYEMS','DSPIC96','INDPRO','CMRMTSPL'];
-                    LAGGING_INDICATORS = ['UEMPMEAN','ISRATIO','ULCNFB','MPRIME','TOTCI','TDSP','CUSR0000SAS'];
-                    OTHER_INDICATORS = ['USSLIND','CPIAUCSL','GDPC1']
+                    LEADING_INDICATORS = ConstantData.leading_indicators;
+                    COINCIDENT_INDICATORS = ConstantData.coincident_indicators;
+                    LAGGING_INDICATORS = ConstantData.lagging_indicators;
+                    OTHER_INDICATORS = ConstantData.other_indicators;
 
                     if (LEADING_INDICATORS.indexOf(seriesValues[i].id) > -1 ){
                         indicatorType = "leadingValue";
