@@ -38,7 +38,7 @@ const gatherData = async function() {
     data = await Promise.all(promises)
       .then(data => {
         return data;
-    });
+    }).catch((err) => console.log(err));
   
     //create a monthly structure to store data points
     let monthlyStructure = [];

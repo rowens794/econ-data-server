@@ -29,7 +29,7 @@ exports.BuildIndicatorAndSave = function (rawData, summaryData) {
     }else{
         positiveIndicatorDirection = 'negative'
     }
-
+    
     //create a small package of data to be downloaded immediately on page load
     indicatorData = {
         IndicatorSymbol: rawData.id,
