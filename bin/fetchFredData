@@ -1,3 +1,4 @@
 #!/usr/bin/env node
 
-console.log("Scheudled function running");
+var start = require('./www.js');
+start();
