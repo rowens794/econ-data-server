@@ -49,12 +49,11 @@ exports.BuildIndicatorAndSave = function (rawData, summaryData) {
         Frequency: rawData.frequency,
         FrequencyShort: rawData.frequency_short,
     };
-
     
-    //--------Function to establish initial data population-------
+    // --------Function to establish initial data population-------
     // const indicator = new Indicators(indicatorData);
     // indicator.save(indicatorData, function(err){
-    //     if (err) console.log('error saving indicator data');
+    //     if (err) console.log(`error saving indicator data for ${rawData.id}`);
     //     else console.log(`indicator data for ${rawData.id} saved successfully`);
     // })
 

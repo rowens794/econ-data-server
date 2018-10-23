@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
-var start = require('./www.js');
-start();
+var getData = require("../processing/GatherData");
+getData();
