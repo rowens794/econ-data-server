@@ -17,7 +17,7 @@ async function getFedData(SeriesID) {
     metaData = await axios.get(metaUrl).then(response => {
         returnObject = response.data.seriess[0];
         return returnObject
-    }).catch((err) => console.log(err));;
+    }).catch((err) => console.log('error fetching data from fred api'));;
 
     seriesData = await axios.get(seriesURL).then(response => {
         returnArray = response.data.observations;
@@ -47,7 +47,7 @@ async function getFedData(SeriesID) {
         }
 
         return finalArray
-    }).catch((err) => console.log(err));;
+    }).catch((err) => console.log('error processing fred data'));;
     
     mergedObj = {...metaData, data: seriesData}
     return mergedObj;
