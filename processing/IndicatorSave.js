@@ -24,7 +24,7 @@ exports.BuildIndicatorAndSave = function (rawData, summaryData) {
 
     //identify positive indicator direction
     let positiveIndicatorDirection = '';
-    if(RISING_INDICATORS.indexOf(rawData.id)){
+    if(RISING_INDICATORS.indexOf(rawData.id) > -1){
         positiveIndicatorDirection = 'positive'
     }else{
         positiveIndicatorDirection = 'negative'
@@ -50,23 +50,21 @@ exports.BuildIndicatorAndSave = function (rawData, summaryData) {
         FrequencyShort: rawData.frequency_short,
     };
 
-
     
-    
-    //Function to establish initial data population
-    const indicator = new Indicators(indicatorData);
-    indicator.save(indicatorData, function(err){
-        if (err) console.log('error saving indicator data');
-        else console.log(`indicator data for ${rawData.id} saved successfully`);
-    })
-
-
-    // Indicators.findOneAndUpdate({IndicatorSymbol: rawData.id}, indicatorData, function(err){
-    //     if (err) {
-    //         console.log(`indicator data for ${rawData.id} failed to update`);
-    //     }
-    //     else {
-    //         console.log(`indicator data for ${rawData.id} updated successfully`);
-    //     }
+    //--------Function to establish initial data population-------
+    // const indicator = new Indicators(indicatorData);
+    // indicator.save(indicatorData, function(err){
+    //     if (err) console.log('error saving indicator data');
+    //     else console.log(`indicator data for ${rawData.id} saved successfully`);
     // })
+
+
+    Indicators.findOneAndUpdate({IndicatorSymbol: rawData.id}, indicatorData, function(err){
+        if (err) {
+            console.log(`indicator data for ${rawData.id} failed to update`);
+        }
+        else {
+            console.log(`indicator data for ${rawData.id} updated successfully`);
+        }
+    })
 }

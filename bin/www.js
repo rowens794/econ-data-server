@@ -62,7 +62,7 @@ const testFunc = async function() {
     monthlyStructure.push({date: startDate.toDate(), leadingValue: 0, coincidentValue: 0, laggingValue: 0, otherValue:0});
     startDate.subtract(1, 'months');
   }
-  console.log(monthlyStructure);
+  
   
   //pass date structure and data into a function to calculate period scores for business cycle
   const summaryData = await SummarySeriesCalc.summaryCalc(monthlyStructure, data);
