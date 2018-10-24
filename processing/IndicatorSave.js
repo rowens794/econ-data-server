@@ -16,7 +16,7 @@ exports.BuildIndicatorAndSave = function (rawData, summaryData) {
         indicatorType = 'Leading'
     }else if (COINCIDENT_INDICATORS.indexOf(rawData.id)){
         indicatorType = 'Coincident'
-    }else if (COINCIDENT_INDICATORS.indexOf(rawData.id)){
+    }else if (LAGGING_INDICATORS.indexOf(rawData.id)){
         indicatorType = 'Lagging'
     }else{
         indicatorType = ''

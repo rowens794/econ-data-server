@@ -37,6 +37,7 @@ const gatherData = async function() {
     //wait until all of the promises resolve
     data = await Promise.all(promises)
       .then(data => {
+        console.log('STEP 1: Promises Collected. Length: ' + data.length)
         return data;
     }).catch((err) => console.log('error waiting for promises to resolve'));
   

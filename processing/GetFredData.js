@@ -16,6 +16,7 @@ async function getFedData(SeriesID) {
 
     metaData = await axios.get(metaUrl).then(response => {
         returnObject = response.data.seriess[0];
+        console.log('Data collected from FRED for ' + SeriesID)
         return returnObject
     }).catch((err) => console.log('error fetching data from fred api'));;
 
