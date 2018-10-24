@@ -52,8 +52,7 @@ const gatherData = async function() {
     
     
     //pass date structure and data into a function to calculate period scores for business cycle
-    const summaryData = await SummarySeriesCalc.summaryCalc(monthlyStructure, data)
-      .catch((err) => console.log('error calculating summary series'));;
+    const summaryData = await SummarySeriesCalc.summaryCalc(monthlyStructure, data).catch((err) => console.log('error calculating summary series'));;
     
     //parse the finalized object and send to database
     Agg.AggAndSave(summaryData, data);
