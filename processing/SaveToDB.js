@@ -1,9 +1,5 @@
 const Data = require("../models/SmallPack");
-const mongoose = require('mongoose');
-require('dotenv').config({path: 'vars.env'});
 
-let dev_db_url = process.env.dev_db_url;
-let mongoDB = process.env.MONGODB_URI || dev_db_url;
 var exports = module.exports = {};
 
 exports.SaveData = function (object) {

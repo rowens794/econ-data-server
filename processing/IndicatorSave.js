@@ -7,7 +7,6 @@ exports.BuildIndicatorAndSave = function (rawData, summaryData) {
     const LEADING_INDICATORS = ConstantData.leading_indicators;
     const COINCIDENT_INDICATORS = ConstantData.coincident_indicators;
     const LAGGING_INDICATORS = ConstantData.lagging_indicators;
-    const OTHER_INDICATORS = ConstantData.other_indicators;
     const RISING_INDICATORS = ConstantData.rising_indicators;
 
     //identify indicator type
@@ -19,7 +18,7 @@ exports.BuildIndicatorAndSave = function (rawData, summaryData) {
     }else if (LAGGING_INDICATORS.indexOf(rawData.id)){
         indicatorType = 'Lagging'
     }else{
-        indicatorType = ''
+        indicatorType = 'Other'
     }
 
     //identify positive indicator direction
@@ -57,7 +56,7 @@ exports.BuildIndicatorAndSave = function (rawData, summaryData) {
     //     else console.log(`indicator data for ${rawData.id} saved successfully`);
     // })
 
-
+    console.log('immediately prior to indicator update: ' + indicatorData.IndicatorSymbol);
     Indicators.findOneAndUpdate({IndicatorSymbol: rawData.id}, indicatorData, function(err){
         if (err) {
             console.log(`indicator data for ${rawData.id} failed to update`);
@@ -66,4 +65,5 @@ exports.BuildIndicatorAndSave = function (rawData, summaryData) {
             console.log(`indicator data for ${rawData.id} updated successfully`);
         }
     })
+    console.log('immediately after indicator update: ' + indicatorData.IndicatorSymbol);
 }
