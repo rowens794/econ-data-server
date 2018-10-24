@@ -56,7 +56,6 @@ exports.BuildIndicatorAndSave = function (rawData, summaryData) {
     //     else console.log(`indicator data for ${rawData.id} saved successfully`);
     // })
 
-    console.log('immediately prior to indicator update: ' + indicatorData.IndicatorSymbol);
     Indicators.findOneAndUpdate({IndicatorSymbol: rawData.id}, indicatorData, function(err){
         if (err) {
             console.log(`indicator data for ${rawData.id} failed to update`);
@@ -65,5 +64,4 @@ exports.BuildIndicatorAndSave = function (rawData, summaryData) {
             console.log(`indicator data for ${rawData.id} updated successfully`);
         }
     })
-    console.log('immediately after indicator update: ' + indicatorData.IndicatorSymbol);
 }

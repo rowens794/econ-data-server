@@ -16,7 +16,7 @@ let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 //run gather data on application start
-gatherData()
+//gatherData()
 
 app.get('/', function (req, res) {
   Data.find({}, function(err, docs){
@@ -30,6 +30,12 @@ app.get('/', function (req, res) {
   })
 })
 
+app.get('/update', function (req, res) {
+  //run gather data on url hit
+  gatherData();
+  res.send('updating database');
+});
+
 app.get('/:symbol', function (req, res) {
   Indicators.find({IndicatorSymbol: req.params.symbol}, function(err, docs){
     if (err) res.send('error fetching data');
@@ -39,8 +45,9 @@ app.get('/:symbol', function (req, res) {
       res.header("Access-Control-Allow-Headers", "X-Requested-With");
       res.json(docs[0]);
     }
-  })
-})
+  });
+});
+
 
 var port = process.env.PORT || 8080
 app.listen(port);
